@@ -1,0 +1,79 @@
+int izqA = 5; 
+int izqB = 6; 
+int derA = 9; 
+int derB = 10; 
+int vel = 255;            // Velocitat dels motors (0-255)
+int estado = 'c';         // inicia en estat apagat
+
+
+void setup()  { 
+  Serial.begin(9600);    // Inicia el port serial per a la comunicació amb la placa bluetooth 
+  pinMode(derA, OUTPUT);
+  pinMode(derB, OUTPUT);
+  pinMode(izqA, OUTPUT);
+  pinMode(izqB, OUTPUT);
+} 
+
+void loop()  { 
+
+  if(Serial.available()>0){        // Llegeix el bluetooth i ho guarda en l’estat
+    estado = Serial.read();
+  }
+  if(estado=='a'){           // Botó per desplaçar-se endavant
+    analogWrite(derB, 0);     
+    analogWrite(izqB, 0); 
+    analogWrite(derA, vel);  
+    analogWrite(izqA, vel);       
+  }
+  if(estado=='b'){          // Botó per desplaçar-se cap a l’esquerra
+    analogWrite(derB, 0);     
+    analogWrite(izqB, 0); 
+    analogWrite(derA, 0);  
+    analogWrite(izqA, vel);      
+  }
+  if(estado=='c'){         // Botó per parar-se
+    analogWrite(derB, 0);     
+    analogWrite(izqB, 0); 
+    analogWrite(derA, 0);    
+    analogWrite(izqA, 0); 
+  }
+ 
+ if(estado=='d'){          // Botó per desplaçar-se a la dreta
+    analogWrite(derB, 0);     
+    analogWrite(izqB, 0);
+    analogWrite(izqA, 0);
+    analogWrite(derA, vel);  
+  } 
+
+  if(estado=='e'){          // Botó per desplaçar-se enrere
+    analogWrite(derA, 0);    
+    analogWrite(izqA, 0);
+    analogWrite(derB, vel);  
+    analogWrite(izqB, vel);      
+  }
+    if(estado=='i'){            //Programació dels botons 10-9-6-5
+    digitalWrite(derB,1);        
+  }
+    if(estado=='n'){           
+    digitalWrite(derB,0);        
+  }
+    if(estado=='j'){           
+    digitalWrite(derA,1);        
+  }
+    if(estado=='o'){           
+    digitalWrite(derA,0);        
+  }
+    if(estado=='k'){           
+    digitalWrite(izqB,1);        
+  }
+    if(estado=='p'){           
+    digitalWrite(izqB,0);        
+  }
+   
+ if(estado=='l'){           
+    digitalWrite(izqA,1);        
+  }
+    if(estado=='q'){           
+    digitalWrite(izqA,0);        
+  }  
+}
